@@ -19,11 +19,9 @@ This project is inteded to contain low level common classes used across Metispro
 	6. Offsite backup and recovery
 
 
-Data Model
-==========
+## Data Model
 
-	Registration
-	============
+### Registration
 	
 	* Class
 	* 
