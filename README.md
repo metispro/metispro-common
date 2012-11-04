@@ -9,8 +9,7 @@ This project is inteded to contain low level common classes used across Metispro
 
 <p>
 
-Functional Components
-=====================
+## Functional Components
 
 	1. Registration
 	2. Reservations
