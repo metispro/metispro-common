@@ -20,6 +20,36 @@ Functional Components
 	6. Offsite backup and recovery
 
 
-
 Data Model
 ==========
+
+	Registration
+	============
+	
+	* Class
+	* 
+		* Name
+		* Date
+		* Time
+		* Fee
+		* Account
+		* Sign-up deadline
+
+	* League
+	* Team
+	* School
+	* Participant
+	* 
+		* Name
+		* Address
+		* Phone
+		* Size
+		* Age
+		* Grade
+		* Balance
+		* Scholarship
+		* Membership #
+
+	* Teacher
+
+	
