@@ -23,30 +23,37 @@ This project is inteded to contain low level common classes used across Metispro
 
 ### Registration
 	
-	* Class
-	* 
-		* Name
-		* Date
-		* Time
-		* Fee
-		* Account
-		* Sign-up deadline
-
-	* League
-	* Team
+	* Program
+		* type (Class, League)  - String
+		* name - String
+		* description - String
+		* session - Session
+		* fee  - Double
+		* account - String
+		* signUpDeadline - java.util.Date
+	* Session
+		* name - String
+		* beginDate - java.util.Date
+		* endDate   - java.util.Date
+	* Registration
+		* program - Program
+		* registrantName - String
+		* registrantPhone - String
+		* registrantAddr - String
+		* size - String
+		* age - int
+		* memberId - long
+		* amountPaid - Double
+		* transferNum - int
 	* School
 	* Participant
-	* 
-		* Name
-		* Address
-		* Phone
-		* Size
-		* Age
-		* Grade
-		* Balance
-		* Scholarship
-		* Membership #
-
+		* name
+		* address
+		* phone
+		* size
+		* age
+		* grade
+		* balance
+		* scholarship
+		* membershipNum
 	* Teacher
-
-	
