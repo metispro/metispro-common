@@ -3,7 +3,7 @@ metispro-common
 
 <p>
 
-This project is inteded to contain low level common classes used across Metispro features and fuctionality.
+This project is intended to contain low level common classes used across Metispro features and fuctionality.
 
 </p>
 
@@ -23,7 +23,7 @@ This project is inteded to contain low level common classes used across Metispro
 
 ### Registration
 	
-	* Class
+	* Activity
 	* 
 		* Name
 		* Date
@@ -48,5 +48,76 @@ This project is inteded to contain low level common classes used across Metispro
 		* Membership #
 
 	* Teacher
+	
+### Reservations
+	
+	* Activity
+	* Facility
+	*
+		* Name
+		* Membership #
+		* Time
+		
+### Scheduling
+
+
+### Memberships
+
+	* Name
+	*
+		* First
+		* Middle initial
+		* Last
+		
+	* Address
+	*
+		* Street
+		* City
+		* State
+		* Zip code
+		
+	* Date of Birth
+	*
+		* Month
+		* Day
+		* Year
+		
+	* Phone Number
+	*
+		* Area Code
+		* Number
+		
+	* Firm or School
+	
+	* Occupation
+	
+	* Business Address
+	*
+		* Street
+		* City
+		* State
+		* Zip code
+		
+	* Business Phone Number
+	*
+		* Area Code
+		* Number
+		
+	* Membership options
+	*
+		* YMCA Adult for Youth sponsor
+		* Senior
+		* Family
+		* Adult
+		* Young Adult
+		* Youth
+		* Century Membership
+		* Locker Rental
+		* Service Charge
+		
+	
+
+
+	
 
 	
