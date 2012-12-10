@@ -3,7 +3,7 @@ metispro-common
 
 <p>
 
-This project is inteded to contain low level common classes used across Metispro features and fuctionality.
+This project is intended to contain low level common classes used across Metispro features and fuctionality.
 
 </p>
 
