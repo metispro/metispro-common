@@ -99,7 +99,7 @@ This project is intended to contain low level common classes used across Metispr
 		* city - String
 		* state - String
 		* zipcode - int
-
+		
 	* Teacher
 
 ### General Ledger
