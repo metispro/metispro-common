@@ -34,74 +34,117 @@ This project is intended to contain low level common classes used across Metispr
 
 	* League
 	* Team
+
+	* Program
+		* id - long
+		* type (Class, League)  - String
+		* name - String
+		* description - String
+		* session - Session
+		* fee  - Double
+		* account - String
+		* signUpDeadline - java.util.Date
+		
+	* Session
+		* id - long
+		* name - String
+		* beginDate - java.util.Date
+		* endDate   - java.util.Date
+		
+	* Registration
+		* id - long
+		* program - Program
+		* registrantName - String
+		* registrantPhone - String
+		* registrantAddr - String
+		* size - String
+		* age - int
+		* memberId - long
+		* amountPaid - Double
+		* transferNum - int
+		
 	* School
+		* id - long
+		* name - String
+		* addressLine1 - String
+		* addressLine2 - String
+		* city - String
+		* state - String
+		* zipcode - int
+		
 	* Participant
-	* 
-		* Name
-		* Address
-		* Phone
-		* Size
-		* Age
-		* Grade
-		* Balance
-		* Scholarship
-		* Membership #
+		* firstName - String
+		* lastName - String
+		* addressLine1 - String
+		* addressLine2 - String
+		* city - String
+		* state - String
+		* zipcode - int
+		* phone - int
+		* size - String
+		* age - int
+		* grade - String
+		* balance - Double
+		* scholarship (Y,N) - String
+		* membershipId
+		
+	* ProgramLeader
+		* id - long
+		* type (Teacher, Coach, Director) - String
+		* firstName - String
+		* lastName - String
+		* phone - int
+		* addressLine1 - String
+		* addressLine2 - String
+		* city - String
+		* state - String
+		* zipcode - int
 
 	* Teacher
-	
+
+### General Ledger
+	* Account
+	* AccountsReceivable
+	* AccountsPayable
+
 ### Reservations
-	
-	* Activity
 	* Facility
-	*
-		* Name
-		* Membership #
-		* Time
+		* id - long
+		* type - String
+		* name - String
+		* description - String
+		
+	* Equipment
+		* id - long
+		* type - String
+		* name - String
+		* description - String
 		
 ### Scheduling
 
 
 ### Memberships
-
-	* Name
-	*
-		* First
-		* Middle initial
-		* Last
-		
-	* Address
-	*
-		* Street
-		* City
-		* State
-		* Zip code
-		
-	* Date of Birth
-	*
-		* Month
-		* Day
-		* Year
-		
-	* Phone Number
-	*
-		* Area Code
-		* Number
-		
-	* Firm or School
-	
-	* Occupation
-	
-	* Business Address
-	*
-		* Street
-		* City
-		* State
-		* Zip code
-		
-	* Business Phone Number
-	*
-		* Area Code
-		* Number
+	* Member
+		* id - long
+		* firstName - String
+		* lastName - String
+		* middleName - String
+		* dateOfBirth - String
+		* resAddressLine1 - String
+		* resAddressLine2 - String
+		* resCity - String
+		* resState - String
+		* resZipcode - int
+		* resPhone - int
+		* busAddressLine1 - String
+		* busAddressLine2 - String
+		* busCity - String
+		* busState - String
+		* busZipcode - int
+		* busPhone - int
+		* startDate - Date
+		* expirationDate - Date
+		* familyId - long
 		
 	* Membership options
 	*
@@ -115,9 +158,37 @@ This project is intended to contain low level common classes used across Metispr
 		* Locker Rental
 		* Service Charge
 		
-	
 
+	* MembershipApplication
+		* id - long
+		* firstName - String
+		* lastName - String
+		* middleName - String
+		* dateOfBirth - String
+		* resAddressLine1 - String
+		* resAddressLine2 - String
+		* resCity - String
+		* resState - String
+		* resZipcode - int
+		* resPhone - int
+		* busAddressLine1 - String
+		* busAddressLine2 - String
+		* busCity - String
+		* busState - String
+		* busZipcode - int
+		* busPhone - int
+		* applicationDate - Date
+		* familyId - long
+		
+	*ServiceApplication
+		* id - long
+		* membershipApplication - MembershipApplication
+		* service - Service
+		
+	* Service
+		* id - long
+		* type - String
+		* name - String
+		* description - String
 
-	
-
-	
+### Core
