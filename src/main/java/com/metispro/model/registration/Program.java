@@ -28,6 +28,8 @@ public class Program {
 	private String account;
 	
 	private Date signUpDeadline;
+	
+	private Session session;
 
 	/**
 	 * @return the id
@@ -125,6 +127,14 @@ public class Program {
 	 */
 	public void setSignUpDeadline(Date signUpDeadline) {
 		this.signUpDeadline = signUpDeadline;
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
 	}
 	
 	
