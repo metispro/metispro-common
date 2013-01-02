@@ -1,107 +1,229 @@
 package com.metispro.model.registration;
 
-public class Registration {
-	
-	private long id;
-	
-	private Program program;
-	
-	private String registrantName;
-	
-	private String registrantPhone;
-	
-	private String registrantAddr;
-	
-	private String size;
-	
-	private int age;
-	
-	private long memberId;
-	
-	private Double amountPaid;
-	
-	private int transferNum;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-	public long getId() {
-		return id;
-	}
+/**
+ * 
+ * @author Tim
+ * 
+ */
+@Entity
+public class Registration
+{
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	public Program getProgram() {
-		return program;
-	}
+    @ManyToOne
+    @JoinColumn(name = "PROGRAM_ID")
+    private Program program;
 
-	public void setProgram(Program program) {
-		this.program = program;
-	}
+    @Column(name = "REGISTRANT_NAME")
+    private String registrantName;
 
-	public String getRegistrantName() {
-		return registrantName;
-	}
+    @Column(name = "REGISTRANT_PHONE")
+    private String registrantPhone;
 
-	public void setRegistrantName(String registrantName) {
-		this.registrantName = registrantName;
-	}
+    @Column(name = "REGISTRANT_ADDR")
+    private String registrantAddr;
 
-	public String getRegistrantPhone() {
-		return registrantPhone;
-	}
+    private String size;
 
-	public void setRegistrantPhone(String registrantPhone) {
-		this.registrantPhone = registrantPhone;
-	}
+    private int age;
 
-	public String getRegistrantAddr() {
-		return registrantAddr;
-	}
+    private long memberId;
 
-	public void setRegistrantAddr(String registrantAddr) {
-		this.registrantAddr = registrantAddr;
-	}
+    @Column(name = "AMOUNT_PAID")
+    private Double amountPaid;
 
-	public String getSize() {
-		return size;
-	}
+    @Column(name = "TRANSFER_NUM")
+    private int transferNum;
 
-	public void setSize(String size) {
-		this.size = size;
-	}
+    /**
+     * 
+     * @return
+     */
+    public long getId()
+    {
+        return id;
+    }
 
-	public int getAge() {
-		return age;
-	}
+    /**
+     * 
+     * @param id
+     */
+    public void setId(long id)
+    {
+        this.id = id;
+    }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
+    /**
+     * 
+     * @return
+     */
+    public Program getProgram()
+    {
+        return program;
+    }
 
-	public long getMemberId() {
-		return memberId;
-	}
+    /**
+     * 
+     * @param program
+     */
+    public void setProgram(Program program)
+    {
+        this.program = program;
+    }
 
-	public void setMemberId(long memberId) {
-		this.memberId = memberId;
-	}
+    /**
+     * 
+     * @return
+     */
+    public String getRegistrantName()
+    {
+        return registrantName;
+    }
 
-	public Double getAmountPaid() {
-		return amountPaid;
-	}
+    /**
+     * 
+     * @param registrantName
+     */
+    public void setRegistrantName(String registrantName)
+    {
+        this.registrantName = registrantName;
+    }
 
-	public void setAmountPaid(Double amountPaid) {
-		this.amountPaid = amountPaid;
-	}
+    /**
+     * 
+     * @return
+     */
+    public String getRegistrantPhone()
+    {
+        return registrantPhone;
+    }
 
-	public int getTransferNum() {
-		return transferNum;
-	}
+    /**
+     * 
+     * @param registrantPhone
+     */
+    public void setRegistrantPhone(String registrantPhone)
+    {
+        this.registrantPhone = registrantPhone;
+    }
 
-	public void setTransferNum(int transferNum) {
-		this.transferNum = transferNum;
-	}
-	
-	
+    /**
+     * 
+     * @return
+     */
+    public String getRegistrantAddr()
+    {
+        return registrantAddr;
+    }
+
+    /**
+     * 
+     * @param registrantAddr
+     */
+    public void setRegistrantAddr(String registrantAddr)
+    {
+        this.registrantAddr = registrantAddr;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public String getSize()
+    {
+        return size;
+    }
+
+    /**
+     * 
+     * @param size
+     */
+    public void setSize(String size)
+    {
+        this.size = size;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int getAge()
+    {
+        return age;
+    }
+
+    /**
+     * 
+     * @param age
+     */
+    public void setAge(int age)
+    {
+        this.age = age;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public long getMemberId()
+    {
+        return memberId;
+    }
+
+    /**
+     * 
+     * @param memberId
+     */
+    public void setMemberId(long memberId)
+    {
+        this.memberId = memberId;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public Double getAmountPaid()
+    {
+        return amountPaid;
+    }
+
+    /**
+     * 
+     * @param amountPaid
+     */
+    public void setAmountPaid(Double amountPaid)
+    {
+        this.amountPaid = amountPaid;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int getTransferNum()
+    {
+        return transferNum;
+    }
+
+    /**
+     * 
+     * @param transferNum
+     */
+    public void setTransferNum(int transferNum)
+    {
+        this.transferNum = transferNum;
+    }
 
 }

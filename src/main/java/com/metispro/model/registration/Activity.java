@@ -2,68 +2,143 @@ package com.metispro.model.registration;
 
 import java.util.Date;
 
-public class Activity {
-	
-	private long id;
-	
-	private String name;
-	
-	private Date activityDate;
-	
-	private Double fee;
-	
-	private String account;
-	
-	private Date signupDeadline;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-	public long getId() {
-		return id;
-	}
+/**
+ * 
+ * @author Tim
+ * 
+ */
+@Entity
+public class Activity
+{
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	public String getName() {
-		return name;
-	}
+    @Column(length = 255)
+    private String name;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Column(name = "ACTIVITY_DATE")
+    private Date activityDate;
 
-	public Date getActivityDate() {
-		return activityDate;
-	}
+    private Double fee;
 
-	public void setActivityDate(Date activityDate) {
-		this.activityDate = activityDate;
-	}
+    @Column(length = 255)
+    private String account;
 
-	public Double getFee() {
-		return fee;
-	}
+    @Column(name = "SIGNUP_DEADLINE")
+    private Date signupDeadline;
 
-	public void setFee(Double fee) {
-		this.fee = fee;
-	}
+    public long getId()
+    {
+        return id;
+    }
 
-	public String getAccount() {
-		return account;
-	}
+    public Activity setId(long id)
+    {
+        this.id = id;
+        return this;
+    }
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
+    /**
+     * 
+     * @return
+     */
+    public String getName()
+    {
+        return name;
+    }
 
-	public Date getSignupDeadline() {
-		return signupDeadline;
-	}
+    /**
+     * 
+     * @param name
+     */
+    public Activity setName(String name)
+    {
+        this.name = name;
+        return this;
+    }
 
-	public void setSignupDeadline(Date signupDeadline) {
-		this.signupDeadline = signupDeadline;
-	}
-	
-	
+    /**
+     * 
+     * @return
+     */
+    public Date getActivityDate()
+    {
+        return activityDate;
+    }
+
+    /**
+     * 
+     * @param activityDate
+     */
+    public Activity setActivityDate(Date activityDate)
+    {
+        this.activityDate = activityDate;
+        return this;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public Double getFee()
+    {
+        return fee;
+    }
+
+    /**
+     * 
+     * @param fee
+     */
+    public Activity setFee(Double fee)
+    {
+        this.fee = fee;
+        return this;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public String getAccount()
+    {
+        return account;
+    }
+
+    /**
+     * 
+     * @param account
+     */
+    public Activity setAccount(String account)
+    {
+        this.account = account;
+        return this;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public Date getSignupDeadline()
+    {
+        return signupDeadline;
+    }
+
+    /**
+     * 
+     * @param signupDeadline
+     */
+    public Activity setSignupDeadline(Date signupDeadline)
+    {
+        this.signupDeadline = signupDeadline;
+        return this;
+    }
 
 }

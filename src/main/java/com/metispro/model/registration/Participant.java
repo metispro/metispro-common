@@ -1,145 +1,340 @@
 package com.metispro.model.registration;
 
-public class Participant {
-	
-	private String firstName;
-	
-	private String lastName;
-	
-	private String addressLine1;
-	
-	private String addressLine2;
-	
-	private String city;
-	
-	private String state;
-	
-	private int zipcode;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-	private int phone;
+/**
+ * 
+ * @author Tim
+ * 
+ */
+@Entity
+public class Participant
+{
 
-	private String size;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	private int age;
+    @Column(name = "FIRST_NAME", nullable = false, length = 60)
+    private String firstName;
 
-	private String grade;
-	
-	private Double balance;
+    @Column(name = "LAST_NAME", nullable = false, length = 60)
+    private String lastName;
 
-	private String scholarship;
+    @Column(name = "MIDDLE_NAME", length = 60)
+    private String middleName;
 
-	private long membershipId;
+    @Column(name = "ADDRESS_LINE1")
+    private String addressLine1;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    @Column(name = "ADDRESS_LINE2")
+    private String addressLine2;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    @Column(length = 100)
+    private String city;
 
-	public String getLastName() {
-		return lastName;
-	}
+    @Column(length = 100)
+    private String state;
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    private int zipcode;
 
-	public String getAddressLine1() {
-		return addressLine1;
-	}
+    private int phone;
 
-	public void setAddressLine1(String addressLine1) {
-		this.addressLine1 = addressLine1;
-	}
+    @Column(length = 10)
+    private String size;
 
-	public String getAddressLine2() {
-		return addressLine2;
-	}
+    private int age;
 
-	public void setAddressLine2(String addressLine2) {
-		this.addressLine2 = addressLine2;
-	}
+    @Column(length = 20)
+    private String grade;
 
-	public String getCity() {
-		return city;
-	}
+    private Double balance;
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    @Column(length = 1)
+    private String scholarship;
 
-	public String getState() {
-		return state;
-	}
+    private long membershipId;
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    /**
+     * @return the id
+     */
+    public long getId()
+    {
+        return id;
+    }
 
-	public int getZipcode() {
-		return zipcode;
-	}
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(long id)
+    {
+        this.id = id;
+    }
 
-	public void setZipcode(int zipcode) {
-		this.zipcode = zipcode;
-	}
+    /**
+     * 
+     * @return
+     */
+    public String getFirstName()
+    {
+        return firstName;
+    }
 
-	public int getPhone() {
-		return phone;
-	}
+    /**
+     * 
+     * @param firstName
+     */
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
 
-	public void setPhone(int phone) {
-		this.phone = phone;
-	}
+    /**
+     * 
+     * @return
+     */
+    public String getLastName()
+    {
+        return lastName;
+    }
 
-	public String getSize() {
-		return size;
-	}
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
+    }
 
-	public void setSize(String size) {
-		this.size = size;
-	}
+    /**
+     * @return the middleName
+     */
+    public String getMiddleName()
+    {
+        return middleName;
+    }
 
-	public int getAge() {
-		return age;
-	}
+    /**
+     * @param middleName
+     *            the middleName to set
+     */
+    public void setMiddleName(String middleName)
+    {
+        this.middleName = middleName;
+    }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
+    /**
+     * 
+     * @return
+     */
+    public String getAddressLine1()
+    {
+        return addressLine1;
+    }
 
-	public String getGrade() {
-		return grade;
-	}
+    /**
+     * 
+     * @param addressLine1
+     */
+    public void setAddressLine1(String addressLine1)
+    {
+        this.addressLine1 = addressLine1;
+    }
 
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
+    /**
+     * 
+     * @return
+     */
+    public String getAddressLine2()
+    {
+        return addressLine2;
+    }
 
-	public Double getBalance() {
-		return balance;
-	}
+    /**
+     * 
+     * @param addressLine2
+     */
+    public void setAddressLine2(String addressLine2)
+    {
+        this.addressLine2 = addressLine2;
+    }
 
-	public void setBalance(Double balance) {
-		this.balance = balance;
-	}
+    /**
+     * 
+     * @return
+     */
+    public String getCity()
+    {
+        return city;
+    }
 
-	public String getScholarship() {
-		return scholarship;
-	}
+    public void setCity(String city)
+    {
+        this.city = city;
+    }
 
-	public void setScholarship(String scholarship) {
-		this.scholarship = scholarship;
-	}
+    /**
+     * 
+     * @return
+     */
+    public String getState()
+    {
+        return state;
+    }
 
-	public long getMembershipId() {
-		return membershipId;
-	}
+    /**
+     * 
+     * @param state
+     */
+    public void setState(String state)
+    {
+        this.state = state;
+    }
 
-	public void setMembershipId(long membershipId) {
-		this.membershipId = membershipId;
-	}
+    /**
+     * 
+     * @return
+     */
+    public int getZipcode()
+    {
+        return zipcode;
+    }
+
+    /**
+     * 
+     * @param zipcode
+     */
+    public void setZipcode(int zipcode)
+    {
+        this.zipcode = zipcode;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int getPhone()
+    {
+        return phone;
+    }
+
+    /**
+     * 
+     * @param phone
+     */
+    public void setPhone(int phone)
+    {
+        this.phone = phone;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public String getSize()
+    {
+        return size;
+    }
+
+    /**
+     * 
+     * @param size
+     */
+    public void setSize(String size)
+    {
+        this.size = size;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int getAge()
+    {
+        return age;
+    }
+
+    /**
+     * 
+     * @param age
+     */
+    public void setAge(int age)
+    {
+        this.age = age;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public String getGrade()
+    {
+        return grade;
+    }
+
+    /**
+     * 
+     * @param grade
+     */
+    public void setGrade(String grade)
+    {
+        this.grade = grade;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public Double getBalance()
+    {
+        return balance;
+    }
+
+    /**
+     * 
+     * @param balance
+     */
+    public void setBalance(Double balance)
+    {
+        this.balance = balance;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public String getScholarship()
+    {
+        return scholarship;
+    }
+
+    /**
+     * 
+     * @param scholarship
+     */
+    public void setScholarship(String scholarship)
+    {
+        this.scholarship = scholarship;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public long getMembershipId()
+    {
+        return membershipId;
+    }
+
+    /**
+     * 
+     * @param membershipId
+     */
+    public void setMembershipId(long membershipId)
+    {
+        this.membershipId = membershipId;
+    }
 
 }
