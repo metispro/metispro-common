@@ -8,6 +8,12 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+import com.metispro.model.registration.Activity;
+import com.metispro.model.registration.Participant;
+import com.metispro.model.registration.Program;
+import com.metispro.model.registration.Registration;
+import com.metispro.model.registration.Session;
+
 /**
  * @author Tim
  * 
@@ -22,10 +28,20 @@ public class SessionFactoryUtil
         {
             if (sessionFactory == null)
             {
+                Configuration configuration = new Configuration()
+                        .addPackage("com.metispro.model.membership")
+                        .addPackage("com.metispro.model.registration")
+                        .addPackage("com.metispro.model.reservation")
+                        .addPackage("com.metispro.model.scheduling")
+                        .addAnnotatedClass(Activity.class)
+                        .addAnnotatedClass(Participant.class)
+                        .addAnnotatedClass(Program.class)
+                        .addAnnotatedClass(Registration.class)
+                        .addAnnotatedClass(Session.class).configure();
                 ServiceRegistryBuilder builder = new ServiceRegistryBuilder();
-                ServiceRegistry serviceRegistry = builder
-                        .buildServiceRegistry();
-                sessionFactory = new Configuration().configure()
+                ServiceRegistry serviceRegistry = builder.applySettings(
+                        configuration.getProperties()).buildServiceRegistry();
+                sessionFactory = configuration
                         .buildSessionFactory(serviceRegistry);
             }
 
