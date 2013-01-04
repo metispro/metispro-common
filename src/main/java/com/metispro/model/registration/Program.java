@@ -33,7 +33,7 @@ public class Program
     private long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "PROGRAM_TYPE")
+    @Column(name = "PROGRAM_TYPE", length = 30)
     private Type programType;
 
     private String name;

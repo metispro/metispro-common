@@ -1,77 +1,103 @@
 package com.metispro.model.registration;
 
-public class School {
-	
-	private long id;
-	
-	private String name;
-	
-	private String addressLine1;
-	
-	private String addressLine2;
-	
-	private String city;
-	
-	private String state;
-	
-	private int zipcode;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-	public long getId() {
-		return id;
-	}
+@Entity
+public class School
+{
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	public String getName() {
-		return name;
-	}
+    private String name;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Column(name = "ADDRESS_LINE1", length = 100)
+    private String addressLine1;
 
-	public String getAddressLine1() {
-		return addressLine1;
-	}
+    @Column(name = "ADDRESS_LINE2", length = 100)
+    private String addressLine2;
 
-	public void setAddressLine1(String addressLine1) {
-		this.addressLine1 = addressLine1;
-	}
+    @Column(length = 60)
+    private String city;
 
-	public String getAddressLine2() {
-		return addressLine2;
-	}
+    @Column(length = 60)
+    private String state;
 
-	public void setAddressLine2(String addressLine2) {
-		this.addressLine2 = addressLine2;
-	}
+    private int zipcode;
 
-	public String getCity() {
-		return city;
-	}
+    public long getId()
+    {
+        return id;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setId(long id)
+    {
+        this.id = id;
+    }
 
-	public String getState() {
-		return state;
-	}
+    public String getName()
+    {
+        return name;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 
-	public int getZipcode() {
-		return zipcode;
-	}
+    public String getAddressLine1()
+    {
+        return addressLine1;
+    }
 
-	public void setZipcode(int zipcode) {
-		this.zipcode = zipcode;
-	}
-	
-	
+    public void setAddressLine1(String addressLine1)
+    {
+        this.addressLine1 = addressLine1;
+    }
+
+    public String getAddressLine2()
+    {
+        return addressLine2;
+    }
+
+    public void setAddressLine2(String addressLine2)
+    {
+        this.addressLine2 = addressLine2;
+    }
+
+    public String getCity()
+    {
+        return city;
+    }
+
+    public void setCity(String city)
+    {
+        this.city = city;
+    }
+
+    public String getState()
+    {
+        return state;
+    }
+
+    public void setState(String state)
+    {
+        this.state = state;
+    }
+
+    public int getZipcode()
+    {
+        return zipcode;
+    }
+
+    public void setZipcode(int zipcode)
+    {
+        this.zipcode = zipcode;
+    }
 
 }

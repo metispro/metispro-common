@@ -19,6 +19,7 @@ import com.metispro.model.registration.Activity;
  */
 public class ActivityTest
 {
+    private Session session = null;
 
     /**
      * @throws java.lang.Exception
@@ -26,6 +27,8 @@ public class ActivityTest
     @Before
     public void setUp() throws Exception
     {
+        session = SessionFactoryUtil.getSessionFactory().openSession();
+        // session.getTransaction().begin();
     }
 
     /**
@@ -34,18 +37,29 @@ public class ActivityTest
     @After
     public void tearDown() throws Exception
     {
+        // session.getTransaction().commit();
+        session.close();
     }
 
     @Test
-    public void testActivity()
+    public void testActivity() throws Exception
     {
-        Session session = SessionFactoryUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
+        Activity activity = new Activity().setAccount("account")
+                .setActivityDate(new Date()).setFee(1.50).setName("TEST");
+        session.save(activity);
 
-        session.save(new Activity().setAccount("account")
-                .setActivityDate(new Date()).setFee(1.50).setName("TEST"));
-        session.getTransaction().commit();
+        System.out.println("id = " + activity.getId());
 
+        this.nestedTransaction();
     }
 
+    private void nestedTransaction() throws Exception
+    {
+        Activity activity = new Activity().setAccount("account2")
+                .setActivityDate(new Date()).setFee(1.50).setName("TEST2");
+
+        session.save(activity);
+        System.out.println("id = " + activity.getId());
+
+    }
 }

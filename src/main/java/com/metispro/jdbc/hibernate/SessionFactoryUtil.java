@@ -12,6 +12,7 @@ import com.metispro.model.registration.Activity;
 import com.metispro.model.registration.Participant;
 import com.metispro.model.registration.Program;
 import com.metispro.model.registration.Registration;
+import com.metispro.model.registration.School;
 import com.metispro.model.registration.Session;
 
 /**
@@ -37,6 +38,7 @@ public class SessionFactoryUtil
                         .addAnnotatedClass(Participant.class)
                         .addAnnotatedClass(Program.class)
                         .addAnnotatedClass(Registration.class)
+                        .addAnnotatedClass(School.class)
                         .addAnnotatedClass(Session.class).configure();
                 ServiceRegistryBuilder builder = new ServiceRegistryBuilder();
                 ServiceRegistry serviceRegistry = builder.applySettings(
