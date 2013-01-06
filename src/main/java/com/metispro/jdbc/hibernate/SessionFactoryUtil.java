@@ -3,17 +3,12 @@
  */
 package com.metispro.jdbc.hibernate;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
-
-import com.metispro.model.registration.Activity;
-import com.metispro.model.registration.Participant;
-import com.metispro.model.registration.Program;
-import com.metispro.model.registration.Registration;
-import com.metispro.model.registration.School;
-import com.metispro.model.registration.Session;
 
 /**
  * @author Tim
@@ -22,6 +17,7 @@ import com.metispro.model.registration.Session;
 public class SessionFactoryUtil
 {
     private static SessionFactory sessionFactory = null;
+    protected static final ThreadLocal<Session> threadLocal = new ThreadLocal<Session>();
 
     static
     {
@@ -29,22 +25,7 @@ public class SessionFactoryUtil
         {
             if (sessionFactory == null)
             {
-                Configuration configuration = new Configuration()
-                        .addPackage("com.metispro.model.membership")
-                        .addPackage("com.metispro.model.registration")
-                        .addPackage("com.metispro.model.reservation")
-                        .addPackage("com.metispro.model.scheduling")
-                        .addAnnotatedClass(Activity.class)
-                        .addAnnotatedClass(Participant.class)
-                        .addAnnotatedClass(Program.class)
-                        .addAnnotatedClass(Registration.class)
-                        .addAnnotatedClass(School.class)
-                        .addAnnotatedClass(Session.class).configure();
-                ServiceRegistryBuilder builder = new ServiceRegistryBuilder();
-                ServiceRegistry serviceRegistry = builder.applySettings(
-                        configuration.getProperties()).buildServiceRegistry();
-                sessionFactory = configuration
-                        .buildSessionFactory(serviceRegistry);
+                buildSessionFactory();
             }
 
         } catch (Throwable ex)
@@ -60,4 +41,74 @@ public class SessionFactoryUtil
         return sessionFactory;
     }
 
+    /**
+     * Returns the ThreadLocal Session instance. Lazy initialize the
+     * <code>SessionFactory</code> if needed.
+     * 
+     * @return Session
+     * @throws HibernateException
+     */
+    public synchronized static Session getSession() throws HibernateException
+    {
+        Session session = threadLocal.get();
+
+        if (session == null || !session.isOpen())
+        {
+            if (sessionFactory == null)
+            {
+                buildSessionFactory();
+            }
+            session = (sessionFactory != null) ? sessionFactory.openSession()
+                    : null;
+            threadLocal.set(session);
+        }
+
+        return session;
+    }
+
+    /**
+     * Close the single hibernate session instance.
+     * 
+     * @throws HibernateException
+     */
+    public synchronized static void closeSession() throws HibernateException
+    {
+        Session session = threadLocal.get();
+        threadLocal.set(null);
+
+        if (session != null && session.isOpen())
+        {
+            session.close();
+        }
+
+        session = null;
+    }
+
+    private static void buildSessionFactory()
+    {
+        Configuration configuration = new Configuration()
+                .addPackage("com.metispro.model.membership")
+                .addPackage("com.metispro.model.registration")
+                .addAnnotatedClass(
+                        com.metispro.model.registration.Activity.class)
+                .addAnnotatedClass(
+                        com.metispro.model.registration.Participant.class)
+                .addAnnotatedClass(
+                        com.metispro.model.registration.Program.class)
+                .addAnnotatedClass(
+                        com.metispro.model.registration.Registration.class)
+                .addAnnotatedClass(com.metispro.model.registration.School.class)
+                .addAnnotatedClass(
+                        com.metispro.model.registration.Session.class)
+                .addPackage("com.metispro.model.reservation")
+                .addAnnotatedClass(
+                        com.metispro.model.reservation.Equipment.class)
+                .addAnnotatedClass(
+                        com.metispro.model.reservation.Facility.class)
+                .addPackage("com.metispro.model.scheduling").configure();
+        ServiceRegistryBuilder builder = new ServiceRegistryBuilder();
+        ServiceRegistry serviceRegistry = builder.applySettings(
+                configuration.getProperties()).buildServiceRegistry();
+        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+    }
 }
