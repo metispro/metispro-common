@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.metispro.common</groupId>
 	<artifactId>metispro-common</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<dependencies>
 		<!-- Import the Common Annotations API (JSR-250), we use provided scope 
 			as the API is included in JBoss AS 7 -->
