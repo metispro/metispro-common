@@ -8,6 +8,7 @@ import org.hibernate.Session;
 
 import com.metispro.business.StaleDataException;
 import com.metispro.jdbc.hibernate.SessionFactoryUtil;
+import com.metispro.model.registration.Program;
 import com.metispro.model.registration.ProgramSession;
 import com.metispro.model.registration.Registration;
 import com.metispro.model.registration.School;
@@ -23,6 +24,59 @@ public class RegistrationService
 {
 
     /**
+     * Add new Program instance.
+     * 
+     * @param program
+     * @throws Exception
+     */
+    public void addProgram(Program program) throws Exception
+    {
+        if (program == null)
+            return;
+
+        Session session = SessionFactoryUtil.getSession();
+
+        session.save(program);
+    }
+
+    /**
+     * Get Program instance for identifier.
+     * 
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public Program getProgram(long id) throws Exception
+    {
+        Session session = SessionFactoryUtil.getSession();
+
+        return (Program) session.load(Program.class, id);
+    }
+
+    /**
+     * Update Program instance.
+     * 
+     * @param program
+     * @return
+     * @throws Exception
+     */
+    public Program updateProgram(Program program) throws Exception
+    {
+        Session session = SessionFactoryUtil.getSession();
+
+        Program tmp = this.getProgram(program.getId());
+
+        if (program.getUpdateDate().getTime() != tmp.getUpdateDate().getTime())
+            throw new StaleDataException("Program instance is stale!");
+
+        BeanUtils.copyProperties(tmp, program);
+
+        session.update(tmp);
+
+        return program;
+    }
+
+    /**
      * Add a new ProgramSession instance.
      * 
      * @param programSession
@@ -35,6 +89,10 @@ public class RegistrationService
             return;
 
         Session session = SessionFactoryUtil.getSession();
+
+        if (programSession.getProgram() != null
+                && programSession.getProgram().getId() == 0)
+            this.addProgram(programSession.getProgram());
 
         session.save(programSession);
     }
@@ -50,10 +108,8 @@ public class RegistrationService
     {
         Session session = SessionFactoryUtil.getSession();
 
-        ProgramSession programSession = (ProgramSession) session.load(
-                ProgramSession.class, id);
+        return (ProgramSession) session.load(ProgramSession.class, id);
 
-        return programSession;
     }
 
     /**
@@ -68,8 +124,8 @@ public class RegistrationService
     {
         Session session = SessionFactoryUtil.getSession();
 
-        ProgramSession tmpSession = (ProgramSession) session.load(
-                ProgramSession.class, programSession.getId());
+        ProgramSession tmpSession = this.getProgramSession(programSession
+                .getId());
 
         if (programSession.getUpdateDate().getTime() != tmpSession
                 .getUpdateDate().getTime())
@@ -91,13 +147,9 @@ public class RegistrationService
      */
     public Registration getRegistration(long id) throws Exception
     {
-
         Session session = SessionFactoryUtil.getSession();
 
-        Registration registration = (Registration) session.load(
-                Registration.class, id);
-
-        return registration;
+        return (Registration) session.load(Registration.class, id);
     }
 
     /**
@@ -124,8 +176,7 @@ public class RegistrationService
 
         Session session = SessionFactoryUtil.getSession();
 
-        Registration preg = (Registration) session.load(Registration.class,
-                registration.getId());
+        Registration preg = this.getRegistration(registration.getId());
 
         if (registration.getUpdateDate().getTime() != preg.getUpdateDate()
                 .getTime())

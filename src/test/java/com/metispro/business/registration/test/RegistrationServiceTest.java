@@ -4,6 +4,7 @@
 package com.metispro.business.registration.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -17,6 +18,7 @@ import org.junit.Test;
 
 import com.metispro.business.registration.RegistrationService;
 import com.metispro.jdbc.hibernate.SessionFactoryUtil;
+import com.metispro.model.registration.Program;
 import com.metispro.model.registration.ProgramSession;
 import com.metispro.model.registration.Registration;
 import com.metispro.model.registration.School;
@@ -50,14 +52,82 @@ public class RegistrationServiceTest
     }
 
     @Test
+    public void testProgram() throws Exception
+    {
+        System.out.println(this.getClass().getSimpleName() + ".testProgram");
+
+        Program program = new Program();
+        program.setProgramType(Program.Type.CLASS);
+        program.setName("Yoga 1");
+        program.setDescription("Beginning level Yoga class");
+        program.setFee(20.00);
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.add(Calendar.DATE, 30);
+        program.setSignUpDeadline(cal.getTime());
+
+        Transaction trx = null;
+
+        // Test adding a new Program
+        try
+        {
+            trx = session.beginTransaction();
+
+            service.addProgram(program);
+
+            assertTrue(program.getId() > 0);
+
+            Program tmp = service.getProgram(program.getId());
+
+            assertEquals(program, tmp);
+
+            trx.commit();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            trx.rollback();
+        }
+
+        // Test updating Program
+        try
+        {
+            trx = session.beginTransaction();
+
+            program.setFee(29.99);
+
+            service.updateProgram(program);
+
+            Program tmp = service.getProgram(program.getId());
+
+            assertEquals(program, tmp);
+
+            trx.commit();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            trx.rollback();
+        }
+    }
+
+    @Test
     public void testProgramSession() throws Exception
     {
         System.out.println(this.getClass().getSimpleName()
                 + ".testProgramSession");
 
+        Calendar cal = GregorianCalendar.getInstance();
+
+        Program program = new Program();
+        program.setProgramType(Program.Type.CLASS);
+        program.setName("Yoga 1");
+        program.setDescription("Beginning level Yoga class");
+        program.setFee(20.00);
+        cal.add(Calendar.DATE, 30);
+        program.setSignUpDeadline(cal.getTime());
+
         final ProgramSession programSession = new ProgramSession();
         programSession.setName("Fall Session");
         programSession.setBeginDate(new Date());
+        programSession.setProgram(program);
 
         Transaction trx = null;
 
@@ -67,6 +137,8 @@ public class RegistrationServiceTest
             trx = session.beginTransaction();
 
             service.addProgramSession(programSession);
+
+            assertTrue(programSession.getId() > 0);
 
             ProgramSession tmp = service.getProgramSession(programSession
                     .getId());
@@ -85,21 +157,16 @@ public class RegistrationServiceTest
         {
             trx = session.beginTransaction();
 
-            Calendar cal = GregorianCalendar.getInstance();
+            cal = GregorianCalendar.getInstance();
             cal.setTime(programSession.getBeginDate());
             cal.add(Calendar.YEAR, 1);
 
             programSession.setEndDate(cal.getTime());
 
-            System.out.println("ProgramSession version: "
-                    + programSession.getUpdateDate());
-            Thread.sleep(2000);
             service.updateProgramSession(programSession);
 
             ProgramSession tmp = service.getProgramSession(programSession
                     .getId());
-            System.out
-                    .println("ProgramSession version: " + tmp.getUpdateDate());
 
             assertEquals(programSession, tmp);
 
@@ -183,6 +250,8 @@ public class RegistrationServiceTest
 
             service.addSchool(school);
 
+            assertTrue(school.getId() > 0);
+
             School tmp = service.getSchool(school.getId());
 
             assertEquals(school, tmp);
@@ -215,6 +284,8 @@ public class RegistrationServiceTest
             trx = session.beginTransaction();
 
             service.addRegistration(registration);
+
+            assertTrue(registration.getId() > 0);
 
             Registration tmpReg = service.getRegistration(registration.getId());
 

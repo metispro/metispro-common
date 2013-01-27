@@ -22,7 +22,7 @@ import javax.persistence.Version;
 public class Program
 {
 
-    private enum Type
+    public enum Type
     {
         CLASS, LEAGUE
     }
