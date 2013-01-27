@@ -42,10 +42,10 @@ public class SessionFactoryUtil
     }
 
     /**
-     * Returns the ThreadLocal Session instance. Lazy initialize the
+     * Returns the ThreadLocal ProgramSession instance. Lazy initialize the
      * <code>SessionFactory</code> if needed.
      * 
-     * @return Session
+     * @return ProgramSession
      * @throws HibernateException
      */
     public synchronized static Session getSession() throws HibernateException
@@ -99,7 +99,7 @@ public class SessionFactoryUtil
                         com.metispro.model.registration.Registration.class)
                 .addAnnotatedClass(com.metispro.model.registration.School.class)
                 .addAnnotatedClass(
-                        com.metispro.model.registration.Session.class)
+                        com.metispro.model.registration.ProgramSession.class)
                 .addPackage("com.metispro.model.reservation")
                 .addAnnotatedClass(
                         com.metispro.model.reservation.Equipment.class)

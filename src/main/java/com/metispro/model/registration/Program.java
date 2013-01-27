@@ -12,8 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 /**
  * @author Tim
@@ -32,6 +31,10 @@ public class Program
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Version
+    @Column(name = "UPDATE_DATE")
+    private Date updateDate;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "PROGRAM_TYPE", length = 30)
     private Type programType;
@@ -46,10 +49,6 @@ public class Program
 
     @Column(name = "SIGNUP_DEADLINE")
     private Date signUpDeadline;
-
-    @ManyToOne
-    @JoinColumn(name = "SESSION_ID")
-    private Session session;
 
     /**
      * @return the id
@@ -66,6 +65,23 @@ public class Program
     public void setId(long id)
     {
         this.id = id;
+    }
+
+    /**
+     * @return the updateDate
+     */
+    public Date getUpdateDate()
+    {
+        return updateDate;
+    }
+
+    /**
+     * @param updateDate
+     *            the updateDate to set
+     */
+    public void setUpdateDate(Date updateDate)
+    {
+        this.updateDate = updateDate;
     }
 
     /**
@@ -170,14 +186,105 @@ public class Program
         this.signUpDeadline = signUpDeadline;
     }
 
-    public Session getSession()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode()
     {
-        return session;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((account == null) ? 0 : account.hashCode());
+        result = prime * result
+                + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + ((fee == null) ? 0 : fee.hashCode());
+        result = prime * result + (int) (id ^ (id >>> 32));
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result
+                + ((programType == null) ? 0 : programType.hashCode());
+        result = prime * result
+                + ((signUpDeadline == null) ? 0 : signUpDeadline.hashCode());
+        result = prime * result
+                + ((updateDate == null) ? 0 : updateDate.hashCode());
+        return result;
     }
 
-    public void setSession(Session session)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj)
     {
-        this.session = session;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Program other = (Program) obj;
+        if (account == null)
+        {
+            if (other.account != null)
+                return false;
+        } else if (!account.equals(other.account))
+            return false;
+        if (description == null)
+        {
+            if (other.description != null)
+                return false;
+        } else if (!description.equals(other.description))
+            return false;
+        if (fee == null)
+        {
+            if (other.fee != null)
+                return false;
+        } else if (!fee.equals(other.fee))
+            return false;
+        if (id != other.id)
+            return false;
+        if (name == null)
+        {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (programType != other.programType)
+            return false;
+        if (signUpDeadline == null)
+        {
+            if (other.signUpDeadline != null)
+                return false;
+        } else if (!signUpDeadline.equals(other.signUpDeadline))
+            return false;
+        if (updateDate == null)
+        {
+            if (other.updateDate != null)
+                return false;
+        } else if (!updateDate.equals(other.updateDate))
+            return false;
+        return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Program [id=").append(id).append(", updateDate=")
+                .append(updateDate).append(", programType=")
+                .append(programType).append(", name=").append(name)
+                .append(", description=").append(description).append(", fee=")
+                .append(fee).append(", account=").append(account)
+                .append(", signUpDeadline=").append(signUpDeadline).append("]");
+        return builder.toString();
     }
 
 }

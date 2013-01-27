@@ -5,16 +5,17 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 @Entity
-public class School
+public class ProgramSession
 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private long id;
 
     @Version
@@ -23,19 +24,15 @@ public class School
 
     private String name;
 
-    @Column(name = "ADDRESS_LINE1", length = 100)
-    private String addressLine1;
+    @Column(name = "BEGIN_DATE")
+    private Date beginDate;
 
-    @Column(name = "ADDRESS_LINE2", length = 100)
-    private String addressLine2;
+    @Column(name = "END_DATE")
+    private Date endDate;
 
-    @Column(length = 60)
-    private String city;
-
-    @Column(length = 60)
-    private String state;
-
-    private int zipcode;
+    @ManyToOne
+    @JoinColumn(name = "PROGRAM_ID")
+    private Program program;
 
     public long getId()
     {
@@ -74,54 +71,41 @@ public class School
         this.name = name;
     }
 
-    public String getAddressLine1()
+    public Date getBeginDate()
     {
-        return addressLine1;
+        return beginDate;
     }
 
-    public void setAddressLine1(String addressLine1)
+    public void setBeginDate(Date beginDate)
     {
-        this.addressLine1 = addressLine1;
+        this.beginDate = beginDate;
     }
 
-    public String getAddressLine2()
+    public Date getEndDate()
     {
-        return addressLine2;
+        return endDate;
     }
 
-    public void setAddressLine2(String addressLine2)
+    public void setEndDate(Date endDate)
     {
-        this.addressLine2 = addressLine2;
+        this.endDate = endDate;
     }
 
-    public String getCity()
+    /**
+     * @return the program
+     */
+    public Program getProgram()
     {
-        return city;
+        return program;
     }
 
-    public void setCity(String city)
+    /**
+     * @param program
+     *            the program to set
+     */
+    public void setProgram(Program program)
     {
-        this.city = city;
-    }
-
-    public String getState()
-    {
-        return state;
-    }
-
-    public void setState(String state)
-    {
-        this.state = state;
-    }
-
-    public int getZipcode()
-    {
-        return zipcode;
-    }
-
-    public void setZipcode(int zipcode)
-    {
-        this.zipcode = zipcode;
+        this.program = program;
     }
 
     /*
@@ -135,16 +119,13 @@ public class School
         final int prime = 31;
         int result = 1;
         result = prime * result
-                + ((addressLine1 == null) ? 0 : addressLine1.hashCode());
-        result = prime * result
-                + ((addressLine2 == null) ? 0 : addressLine2.hashCode());
-        result = prime * result + ((city == null) ? 0 : city.hashCode());
+                + ((beginDate == null) ? 0 : beginDate.hashCode());
+        result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
         result = prime * result + (int) (id ^ (id >>> 32));
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((state == null) ? 0 : state.hashCode());
+        result = prime * result + ((program == null) ? 0 : program.hashCode());
         result = prime * result
                 + ((updateDate == null) ? 0 : updateDate.hashCode());
-        result = prime * result + zipcode;
         return result;
     }
 
@@ -162,24 +143,18 @@ public class School
             return false;
         if (getClass() != obj.getClass())
             return false;
-        School other = (School) obj;
-        if (addressLine1 == null)
+        ProgramSession other = (ProgramSession) obj;
+        if (beginDate == null)
         {
-            if (other.addressLine1 != null)
+            if (other.beginDate != null)
                 return false;
-        } else if (!addressLine1.equals(other.addressLine1))
+        } else if (!beginDate.equals(other.beginDate))
             return false;
-        if (addressLine2 == null)
+        if (endDate == null)
         {
-            if (other.addressLine2 != null)
+            if (other.endDate != null)
                 return false;
-        } else if (!addressLine2.equals(other.addressLine2))
-            return false;
-        if (city == null)
-        {
-            if (other.city != null)
-                return false;
-        } else if (!city.equals(other.city))
+        } else if (!endDate.equals(other.endDate))
             return false;
         if (id != other.id)
             return false;
@@ -189,19 +164,17 @@ public class School
                 return false;
         } else if (!name.equals(other.name))
             return false;
-        if (state == null)
+        if (program == null)
         {
-            if (other.state != null)
+            if (other.program != null)
                 return false;
-        } else if (!state.equals(other.state))
+        } else if (!program.equals(other.program))
             return false;
         if (updateDate == null)
         {
             if (other.updateDate != null)
                 return false;
         } else if (!updateDate.equals(other.updateDate))
-            return false;
-        if (zipcode != other.zipcode)
             return false;
         return true;
     }
@@ -215,12 +188,11 @@ public class School
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("School [id=").append(id).append(", updateDate=")
-                .append(updateDate).append(", name=").append(name)
-                .append(", addressLine1=").append(addressLine1)
-                .append(", addressLine2=").append(addressLine2)
-                .append(", city=").append(city).append(", state=")
-                .append(state).append(", zipcode=").append(zipcode).append("]");
+        builder.append("ProgramSession [id=").append(id)
+                .append(", updateDate=").append(updateDate).append(", name=")
+                .append(name).append(", beginDate=").append(beginDate)
+                .append(", endDate=").append(endDate).append(", program=")
+                .append(program).append("]");
         return builder.toString();
     }
 

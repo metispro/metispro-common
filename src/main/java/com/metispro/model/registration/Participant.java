@@ -1,10 +1,13 @@
 package com.metispro.model.registration;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 /**
  * 
@@ -18,6 +21,10 @@ public class Participant
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Version
+    @Column(name = "UPDATE_DATE")
+    private Date updateDate;
 
     @Column(name = "FIRST_NAME", nullable = false, length = 60)
     private String firstName;
@@ -74,6 +81,23 @@ public class Participant
     public void setId(long id)
     {
         this.id = id;
+    }
+
+    /**
+     * @return the updateDate
+     */
+    public Date getUpdateDate()
+    {
+        return updateDate;
+    }
+
+    /**
+     * @param updateDate
+     *            the updateDate to set
+     */
+    public void setUpdateDate(Date updateDate)
+    {
+        this.updateDate = updateDate;
     }
 
     /**
@@ -335,6 +359,167 @@ public class Participant
     public void setMembershipId(long membershipId)
     {
         this.membershipId = membershipId;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((addressLine1 == null) ? 0 : addressLine1.hashCode());
+        result = prime * result
+                + ((addressLine2 == null) ? 0 : addressLine2.hashCode());
+        result = prime * result + age;
+        result = prime * result + ((balance == null) ? 0 : balance.hashCode());
+        result = prime * result + ((city == null) ? 0 : city.hashCode());
+        result = prime * result
+                + ((firstName == null) ? 0 : firstName.hashCode());
+        result = prime * result + ((grade == null) ? 0 : grade.hashCode());
+        result = prime * result + (int) (id ^ (id >>> 32));
+        result = prime * result
+                + ((lastName == null) ? 0 : lastName.hashCode());
+        result = prime * result + (int) (membershipId ^ (membershipId >>> 32));
+        result = prime * result
+                + ((middleName == null) ? 0 : middleName.hashCode());
+        result = prime * result + phone;
+        result = prime * result
+                + ((scholarship == null) ? 0 : scholarship.hashCode());
+        result = prime * result + ((size == null) ? 0 : size.hashCode());
+        result = prime * result + ((state == null) ? 0 : state.hashCode());
+        result = prime * result
+                + ((updateDate == null) ? 0 : updateDate.hashCode());
+        result = prime * result + zipcode;
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Participant other = (Participant) obj;
+        if (addressLine1 == null)
+        {
+            if (other.addressLine1 != null)
+                return false;
+        } else if (!addressLine1.equals(other.addressLine1))
+            return false;
+        if (addressLine2 == null)
+        {
+            if (other.addressLine2 != null)
+                return false;
+        } else if (!addressLine2.equals(other.addressLine2))
+            return false;
+        if (age != other.age)
+            return false;
+        if (balance == null)
+        {
+            if (other.balance != null)
+                return false;
+        } else if (!balance.equals(other.balance))
+            return false;
+        if (city == null)
+        {
+            if (other.city != null)
+                return false;
+        } else if (!city.equals(other.city))
+            return false;
+        if (firstName == null)
+        {
+            if (other.firstName != null)
+                return false;
+        } else if (!firstName.equals(other.firstName))
+            return false;
+        if (grade == null)
+        {
+            if (other.grade != null)
+                return false;
+        } else if (!grade.equals(other.grade))
+            return false;
+        if (id != other.id)
+            return false;
+        if (lastName == null)
+        {
+            if (other.lastName != null)
+                return false;
+        } else if (!lastName.equals(other.lastName))
+            return false;
+        if (membershipId != other.membershipId)
+            return false;
+        if (middleName == null)
+        {
+            if (other.middleName != null)
+                return false;
+        } else if (!middleName.equals(other.middleName))
+            return false;
+        if (phone != other.phone)
+            return false;
+        if (scholarship == null)
+        {
+            if (other.scholarship != null)
+                return false;
+        } else if (!scholarship.equals(other.scholarship))
+            return false;
+        if (size == null)
+        {
+            if (other.size != null)
+                return false;
+        } else if (!size.equals(other.size))
+            return false;
+        if (state == null)
+        {
+            if (other.state != null)
+                return false;
+        } else if (!state.equals(other.state))
+            return false;
+        if (updateDate == null)
+        {
+            if (other.updateDate != null)
+                return false;
+        } else if (!updateDate.equals(other.updateDate))
+            return false;
+        if (zipcode != other.zipcode)
+            return false;
+        return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Participant [id=").append(id).append(", updateDate=")
+                .append(updateDate).append(", firstName=").append(firstName)
+                .append(", lastName=").append(lastName).append(", middleName=")
+                .append(middleName).append(", addressLine1=")
+                .append(addressLine1).append(", addressLine2=")
+                .append(addressLine2).append(", city=").append(city)
+                .append(", state=").append(state).append(", zipcode=")
+                .append(zipcode).append(", phone=").append(phone)
+                .append(", size=").append(size).append(", age=").append(age)
+                .append(", grade=").append(grade).append(", balance=")
+                .append(balance).append(", scholarship=").append(scholarship)
+                .append(", membershipId=").append(membershipId).append("]");
+        return builder.toString();
     }
 
 }
