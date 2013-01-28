@@ -3,9 +3,11 @@
  */
 package com.metispro.service.proxy;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -29,15 +31,15 @@ public abstract class HttpServiceProxy implements ServiceProxy
      * @throws IOException
      * 
      */
-    public HttpServiceProxy() throws IOException
+    public HttpServiceProxy()
     {
         this("GET", "text/html");
     }
 
     public HttpServiceProxy(String requestMethod, String contentType)
-            throws IOException
     {
         this.requestMethod = requestMethod;
+        requestProperties.put("Content-Type", contentType);
     }
 
     public void setContentType(String contentType)
@@ -54,30 +56,76 @@ public abstract class HttpServiceProxy implements ServiceProxy
             HttpServiceRequest request) throws Exception
     {
         URL url = new URL(getURL(request.getMethod()));
-        HttpURLConnection conn = openConnection(url);
+        HttpURLConnection conn = null;
+        HttpServiceResponse response = null;
 
-        HttpServiceResponse response = new HttpServiceResponse();
-
-        if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED)
+        try
         {
-            response.setErrorCode("Failed : HTTP error code : "
-                    + conn.getResponseCode());
-        }
+            conn = openConnection(url);
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(
-                (conn.getInputStream())));
+            if (request.getPayload() != null)
+            {
+                OutputStream os = conn.getOutputStream();
+                os.write(request.getPayload());
+                os.flush();
 
-        StringBuffer sb = new StringBuffer();
-        String output;
-        while ((output = br.readLine()) != null)
+                response = new HttpServiceResponse();
+
+                int status = conn.getResponseCode();
+                if (status != HttpURLConnection.HTTP_OK)
+                    response.setErrorCode("Failed : HTTP error code : "
+                            + status);
+
+                try
+                {
+                    byte[] body = readStream(conn.getInputStream());
+
+                    if (body.length > 0)
+                        response.setPayload(body);
+                } catch (Exception e)
+                {
+                    response.setErrorCode(e.getMessage());
+                    ByteArrayOutputStream out = new ByteArrayOutputStream();
+                    e.printStackTrace(new PrintStream(out, true));
+                    response.setPayload(out.toByteArray());
+                }
+            }
+
+            if (response == null)
+            {
+                response = new HttpServiceResponse();
+
+                try
+                {
+                    byte[] body = readStream(conn.getInputStream());
+
+                    int status = conn.getResponseCode();
+                    if (status != HttpURLConnection.HTTP_OK)
+                    {
+                        response.setErrorCode("Failed : HTTP error code : "
+                                + status);
+                        response.setPayload(conn.getResponseMessage()
+                                .getBytes());
+                    } else if (body.length > 0)
+                        response.setPayload(body);
+                } catch (Exception e)
+                {
+                    response.setErrorCode(e.getMessage());
+                    ByteArrayOutputStream out = new ByteArrayOutputStream();
+                    e.printStackTrace(new PrintStream(out, true));
+                    response.setPayload(out.toByteArray());
+                }
+            }
+        } catch (Exception e)
         {
-            sb.append(output);
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally
+        {
+            if (conn != null)
+                conn.disconnect();
+
         }
-
-        conn.disconnect();
-
-        if (sb.length() > 0)
-            response.setPayload(sb.toString().getBytes());
 
         return response;
     }
@@ -94,6 +142,16 @@ public abstract class HttpServiceProxy implements ServiceProxy
         }
 
         return conn;
+    }
+
+    private static byte[] readStream(InputStream in) throws IOException
+    {
+        byte[] buf = new byte[1024];
+        int count = 0;
+        ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
+        while ((count = in.read(buf)) != -1)
+            out.write(buf, 0, count);
+        return out.toByteArray();
     }
 
     protected abstract String getURL(String method);
