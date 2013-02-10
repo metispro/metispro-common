@@ -60,6 +60,31 @@ public abstract class HttpServiceProxy implements ServiceProxy
         requestProperties.put(key, value);
     }
 
+    /**
+     * Gets HttpServiceResponse for specified HttpServiceRequest
+     * 
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    public ServiceResponse getServiceResponse(HttpServiceRequest request)
+            throws Exception
+    {
+        if (request == null)
+        {
+            logger.warn("HttpServiceRequest cannot be null");
+            return null;
+        }
+
+        logger.info("Executing HttpServiceProxy for URL = "
+                + this.getEndpoint(request.getMethod()));
+
+        HttpServiceResponse response = (HttpServiceResponse) this
+                .executeServiceRequestResponse(request);
+
+        return response;
+    }
+
     protected ServiceResponse executeServiceRequestResponse(
             HttpServiceRequest request) throws Exception
     {

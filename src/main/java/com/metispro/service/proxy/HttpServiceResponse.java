@@ -24,7 +24,6 @@ public class HttpServiceResponse implements ServiceResponse
      */
     public HttpServiceResponse()
     {
-        // TODO Auto-generated constructor stub
     }
 
     /*
@@ -32,9 +31,10 @@ public class HttpServiceResponse implements ServiceResponse
      * 
      * @see com.metispro.service.ServiceResponse#setPayload(byte[])
      */
-    public void setPayload(byte[] bytes)
+    public ServiceResponse setPayload(byte[] bytes)
     {
         this.payload = bytes;
+        return this;
     }
 
     /*
@@ -70,11 +70,13 @@ public class HttpServiceResponse implements ServiceResponse
     /**
      * @param errorCode
      *            the errorCode to set
+     * @return
      */
-    public void setErrorCode(String errorCode)
+    public ServiceResponse setErrorCode(String errorCode)
     {
         this.errorCode = errorCode;
         hasError = true;
+        return this;
     }
 
     /**
@@ -88,10 +90,12 @@ public class HttpServiceResponse implements ServiceResponse
     /**
      * @param responseCode
      *            the responseCode to set
+     * @return
      */
-    public void setResponseCode(int responseCode)
+    public ServiceResponse setResponseCode(int responseCode)
     {
         this.responseCode = responseCode;
+        return this;
     }
 
 }

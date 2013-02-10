@@ -6,9 +6,14 @@ public class HttpServiceRequest implements ServiceRequest
 {
     protected String method;
 
+    protected byte[] payload;
+
     public HttpServiceRequest(String method)
     {
-        this.method = method;
+        if (method != null)
+            this.method = method;
+        else
+            this.method = "";
     }
 
     public String getMethod()
@@ -16,16 +21,15 @@ public class HttpServiceRequest implements ServiceRequest
         return method;
     }
 
-    public void setPayload(byte[] bytes)
+    public ServiceRequest setPayload(byte[] bytes)
     {
-        // TODO Auto-generated method stub
-
+        this.payload = bytes;
+        return this;
     }
 
     public byte[] getPayload()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return payload;
     }
 
 }

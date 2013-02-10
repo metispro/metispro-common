@@ -9,7 +9,7 @@ package com.metispro.service;
  */
 public interface ServiceResponse
 {
-    public void setPayload(byte[] bytes);
+    public ServiceResponse setPayload(byte[] bytes);
 
     public byte[] getPayload();
 
