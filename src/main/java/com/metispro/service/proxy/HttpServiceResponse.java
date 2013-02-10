@@ -17,6 +17,8 @@ public class HttpServiceResponse implements ServiceResponse
 
     protected String errorCode;
 
+    protected int responseCode = -1;
+
     /**
      * 
      */
@@ -73,6 +75,23 @@ public class HttpServiceResponse implements ServiceResponse
     {
         this.errorCode = errorCode;
         hasError = true;
+    }
+
+    /**
+     * @return the responseCode
+     */
+    public int getResponseCode()
+    {
+        return responseCode;
+    }
+
+    /**
+     * @param responseCode
+     *            the responseCode to set
+     */
+    public void setResponseCode(int responseCode)
+    {
+        this.responseCode = responseCode;
     }
 
 }

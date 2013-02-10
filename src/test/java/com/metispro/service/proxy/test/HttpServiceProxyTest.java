@@ -3,6 +3,7 @@
  */
 package com.metispro.service.proxy.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -39,12 +40,14 @@ public class HttpServiceProxyTest
     }
 
     @Test
-    public void testHttpServiceProxy()
+    public void testHttpOKResponse()
     {
-        GoogleServiceProxy proxy = new GoogleServiceProxy();
+        TestHttpServiceProxy proxy = new TestHttpServiceProxy(
+                "http://www.google.com");
+
         try
         {
-            HttpServiceResponse response = proxy.getGoogleHomePage();
+            HttpServiceResponse response = proxy.getServiceResponse();
 
             assertNotNull(response);
             assertFalse(response.hasError());
@@ -52,15 +55,25 @@ public class HttpServiceProxyTest
             String output = new String(response.getPayload());
 
             System.out.println(output);
+            assertTrue(true);
         } catch (Exception e)
         {
             e.printStackTrace();
+            assertFalse(true);
         }
 
-        ErrorServiceProxy errorProxy = new ErrorServiceProxy();
+    }
+
+    @Test
+    public void testUnknownHost() throws Exception
+    {
+        TestHttpServiceProxy proxy = new TestHttpServiceProxy();
+
+        // Test Unknown host
         try
         {
-            HttpServiceResponse response = errorProxy.getErrorResponse();
+            proxy.setEndpoint("http://bogus.bogus.bogus");
+            HttpServiceResponse response = proxy.getServiceResponse();
             assertNotNull(response);
             assertTrue(response.hasError());
 
@@ -68,47 +81,77 @@ public class HttpServiceProxyTest
             String output = new String(response.getPayload());
 
             System.out.println(output);
+            assertTrue(true);
         } catch (Exception e)
         {
             e.printStackTrace();
+            assertFalse(true);
         }
-
     }
 
-    class GoogleServiceProxy extends HttpServiceProxy
+    @Test
+    public void testHttp404() throws Exception
     {
-        private final String url = "http://www.google.com";
 
-        @Override
-        protected String getURL(String method)
+        TestHttpServiceProxy proxy = new TestHttpServiceProxy();
+
+        try
         {
-            return url;
-        }
+            proxy.setEndpoint("http://localhost");
+            HttpServiceResponse response = proxy.getServiceResponse("bogus");
+            assertNotNull(response);
+            assertTrue(response.hasError());
+            assertEquals(404, response.getResponseCode());
 
-        public HttpServiceResponse getGoogleHomePage() throws Exception
+            System.out.println(response.getErrorCode());
+        } catch (Exception e)
         {
-            HttpServiceResponse response = (HttpServiceResponse) this
-                    .executeServiceRequestResponse(new HttpServiceRequest("/"));
-
-            return response;
+            e.printStackTrace();
+            assertFalse(true);
         }
-
     }
 
-    class ErrorServiceProxy extends HttpServiceProxy
+    class TestHttpServiceProxy extends HttpServiceProxy
     {
-        private final String url = "http://localhost";
+        private String endpoint = "http://localhost";
 
-        @Override
-        protected String getURL(String method)
+        public TestHttpServiceProxy()
         {
-            return url;
         }
 
-        public HttpServiceResponse getErrorResponse() throws Exception
+        public TestHttpServiceProxy(String endpoint)
         {
+            this.endpoint = endpoint;
+        }
+
+        @Override
+        protected String getEndpoint(String method)
+        {
+            return endpoint + "/" + method;
+        }
+
+        public void setEndpoint(String url)
+        {
+            this.endpoint = url;
+        }
+
+        public HttpServiceResponse getServiceResponse() throws Exception
+        {
+            return this.getServiceResponse(null);
+        }
+
+        public HttpServiceResponse getServiceResponse(String method)
+                throws Exception
+        {
+            if (method == null)
+                method = "";
+
+            System.out.println("Executing HttpServiceProxy for URL = "
+                    + this.getEndpoint(method));
+
             HttpServiceResponse response = (HttpServiceResponse) this
-                    .executeServiceRequestResponse(new HttpServiceRequest("/"));
+                    .executeServiceRequestResponse(new HttpServiceRequest(
+                            method));
 
             return response;
         }

@@ -55,7 +55,7 @@ public abstract class HttpServiceProxy implements ServiceProxy
     protected ServiceResponse executeServiceRequestResponse(
             HttpServiceRequest request) throws Exception
     {
-        URL url = new URL(getURL(request.getMethod()));
+        URL url = new URL(getEndpoint(request.getMethod()));
         HttpURLConnection conn = null;
         HttpServiceResponse response = null;
 
@@ -72,6 +72,7 @@ public abstract class HttpServiceProxy implements ServiceProxy
                 response = new HttpServiceResponse();
 
                 int status = conn.getResponseCode();
+                response.setResponseCode(status);
                 if (status != HttpURLConnection.HTTP_OK)
                     response.setErrorCode("Failed : HTTP error code : "
                             + status);
@@ -97,17 +98,20 @@ public abstract class HttpServiceProxy implements ServiceProxy
 
                 try
                 {
-                    byte[] body = readStream(conn.getInputStream());
-
                     int status = conn.getResponseCode();
+                    response.setResponseCode(status);
                     if (status != HttpURLConnection.HTTP_OK)
                     {
                         response.setErrorCode("Failed : HTTP error code : "
                                 + status);
                         response.setPayload(conn.getResponseMessage()
                                 .getBytes());
-                    } else if (body.length > 0)
+                    } else
+                    {
+                        byte[] body = readStream(conn.getInputStream());
+
                         response.setPayload(body);
+                    }
                 } catch (Exception e)
                 {
                     response.setErrorCode(e.getMessage());
@@ -154,5 +158,5 @@ public abstract class HttpServiceProxy implements ServiceProxy
         return out.toByteArray();
     }
 
-    protected abstract String getURL(String method);
+    protected abstract String getEndpoint(String method);
 }
