@@ -143,23 +143,14 @@ public class HttpServiceProxyTest
 
         public HttpServiceResponse getServiceResponse() throws Exception
         {
-            return this.getServiceResponse(null);
+            return this.getServiceResponse((String) null);
         }
 
         public HttpServiceResponse getServiceResponse(String method)
                 throws Exception
         {
-            if (method == null)
-                method = "";
-
-            logger.info("Executing HttpServiceProxy for URL = "
-                    + this.getEndpoint(method));
-
-            HttpServiceResponse response = (HttpServiceResponse) this
-                    .executeServiceRequestResponse(new HttpServiceRequest(
-                            method));
-
-            return response;
+            return (HttpServiceResponse) this
+                    .getServiceResponse(new HttpServiceRequest(method));
         }
     }
 }

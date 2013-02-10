@@ -24,7 +24,6 @@ public class HttpServiceResponse implements ServiceResponse
      */
     public HttpServiceResponse()
     {
-        // TODO Auto-generated constructor stub
     }
 
     /*
