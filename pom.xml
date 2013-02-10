@@ -6,22 +6,24 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<dependencies>
 		<!-- Import the Common Annotations API (JSR-250), we use provided scope 
-			as the API is included in JBoss AS 7 -->
+			as the API is included in JBoss AS 7 
 		<dependency>
 			<groupId>org.jboss.spec.javax.annotation</groupId>
 			<artifactId>jboss-annotations-api_1.1_spec</artifactId>
 			<version>1.0.1.Final</version>
 			<scope>provided</scope>
 		</dependency>
+	    -->
 
 		<!-- Import the JAX-RS API, we use provided scope as the API is included 
-			in JBoss AS 7 -->
+			in JBoss AS 7
 		<dependency>
 			<groupId>org.jboss.spec.javax.ws.rs</groupId>
 			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
 			<version>1.0.1.Final</version>
 			<scope>provided</scope>
 		</dependency>
+		-->
 		
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
@@ -53,6 +55,17 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.8.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.2</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

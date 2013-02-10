@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.metispro.service.ServiceProxy;
 import com.metispro.service.ServiceResponse;
 
@@ -23,6 +26,8 @@ import com.metispro.service.ServiceResponse;
  */
 public abstract class HttpServiceProxy implements ServiceProxy
 {
+    final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     protected final String requestMethod;
 
     protected Map<String, String> requestProperties = new HashMap<String, String>();
@@ -38,6 +43,9 @@ public abstract class HttpServiceProxy implements ServiceProxy
 
     public HttpServiceProxy(String requestMethod, String contentType)
     {
+        logger.trace(
+                "Initializing poxy with requestMethod = {} and contentType = {}",
+                requestMethod, contentType);
         this.requestMethod = requestMethod;
         requestProperties.put("Content-Type", contentType);
     }
@@ -55,6 +63,9 @@ public abstract class HttpServiceProxy implements ServiceProxy
     protected ServiceResponse executeServiceRequestResponse(
             HttpServiceRequest request) throws Exception
     {
+        if (request == null)
+            logger.warn("HttpServiceRequest cannot be null");
+
         URL url = new URL(getEndpoint(request.getMethod()));
         HttpURLConnection conn = null;
         HttpServiceResponse response = null;
@@ -122,13 +133,12 @@ public abstract class HttpServiceProxy implements ServiceProxy
             }
         } catch (Exception e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error("Failed to execute service proxy Request/Response.", e);
+            throw e;
         } finally
         {
             if (conn != null)
                 conn.disconnect();
-
         }
 
         return response;

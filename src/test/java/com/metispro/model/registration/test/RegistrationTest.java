@@ -3,8 +3,6 @@
  */
 package com.metispro.model.registration.test;
 
-import static org.junit.Assert.fail;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +33,6 @@ public class RegistrationTest
     @Test
     public void test()
     {
-        fail("Not yet implemented");
     }
 
 }

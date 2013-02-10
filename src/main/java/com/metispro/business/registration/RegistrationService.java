@@ -5,6 +5,8 @@ package com.metispro.business.registration;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.metispro.business.StaleDataException;
 import com.metispro.jdbc.hibernate.SessionFactoryUtil;
@@ -22,6 +24,7 @@ import com.metispro.model.registration.School;
  */
 public class RegistrationService
 {
+    final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Add new Program instance.
@@ -32,7 +35,10 @@ public class RegistrationService
     public void addProgram(Program program) throws Exception
     {
         if (program == null)
+        {
+            logger.warn("Missing required Program parameter.");
             return;
+        }
 
         Session session = SessionFactoryUtil.getSession();
 
@@ -50,6 +56,8 @@ public class RegistrationService
     {
         Session session = SessionFactoryUtil.getSession();
 
+        logger.debug("Retreiving Program with id = {}", id);
+
         return (Program) session.load(Program.class, id);
     }
 
@@ -62,6 +70,12 @@ public class RegistrationService
      */
     public Program updateProgram(Program program) throws Exception
     {
+        if (program == null)
+        {
+            logger.warn("Missing required Program parameter.");
+            return program;
+        }
+
         Session session = SessionFactoryUtil.getSession();
 
         Program tmp = this.getProgram(program.getId());
@@ -86,7 +100,10 @@ public class RegistrationService
             throws Exception
     {
         if (programSession == null)
+        {
+            logger.warn("Missing required ProgramSession parameter.");
             return;
+        }
 
         Session session = SessionFactoryUtil.getSession();
 
@@ -108,6 +125,8 @@ public class RegistrationService
     {
         Session session = SessionFactoryUtil.getSession();
 
+        logger.debug("Retreiving ProgramSession with id = {}", id);
+
         return (ProgramSession) session.load(ProgramSession.class, id);
 
     }
@@ -122,6 +141,12 @@ public class RegistrationService
     public ProgramSession updateProgramSession(ProgramSession programSession)
             throws Exception
     {
+        if (programSession == null)
+        {
+            logger.warn("Missing required ProgramSession parameter.");
+            return programSession;
+        }
+
         Session session = SessionFactoryUtil.getSession();
 
         ProgramSession tmpSession = this.getProgramSession(programSession
@@ -149,6 +174,8 @@ public class RegistrationService
     {
         Session session = SessionFactoryUtil.getSession();
 
+        logger.debug("Retreiving Registration with id = {}", id);
+
         return (Registration) session.load(Registration.class, id);
     }
 
@@ -161,7 +188,10 @@ public class RegistrationService
     public void addRegistration(Registration registration) throws Exception
     {
         if (registration == null)
+        {
+            logger.warn("Missing required Registration parameter.");
             return;
+        }
 
         Session session = SessionFactoryUtil.getSession();
 
@@ -172,7 +202,10 @@ public class RegistrationService
             throws Exception
     {
         if (registration == null)
+        {
+            logger.warn("Missing required Registration parameter.");
             return registration;
+        }
 
         Session session = SessionFactoryUtil.getSession();
 
@@ -192,7 +225,10 @@ public class RegistrationService
     public void addSchool(School school) throws Exception
     {
         if (school == null)
+        {
+            logger.warn("Missing required School parameter.");
             return;
+        }
 
         Session session = SessionFactoryUtil.getSession();
 
@@ -202,6 +238,8 @@ public class RegistrationService
     public School getSchool(long id) throws Exception
     {
         Session session = SessionFactoryUtil.getSession();
+
+        logger.debug("Retreiving School with id = {}", id);
 
         return (School) session.load(School.class, id);
     }

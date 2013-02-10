@@ -11,6 +11,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.metispro.service.proxy.HttpServiceProxy;
 import com.metispro.service.proxy.HttpServiceRequest;
@@ -22,6 +24,7 @@ import com.metispro.service.proxy.HttpServiceResponse;
  */
 public class HttpServiceProxyTest
 {
+    final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * @throws java.lang.Exception
@@ -42,6 +45,7 @@ public class HttpServiceProxyTest
     @Test
     public void testHttpOKResponse()
     {
+        logger.info("testHttpOKResponse");
         TestHttpServiceProxy proxy = new TestHttpServiceProxy(
                 "http://www.google.com");
 
@@ -54,7 +58,7 @@ public class HttpServiceProxyTest
 
             String output = new String(response.getPayload());
 
-            System.out.println(output);
+            logger.info(output);
             assertTrue(true);
         } catch (Exception e)
         {
@@ -67,6 +71,7 @@ public class HttpServiceProxyTest
     @Test
     public void testUnknownHost() throws Exception
     {
+        logger.info("testUnknownHost");
         TestHttpServiceProxy proxy = new TestHttpServiceProxy();
 
         // Test Unknown host
@@ -77,10 +82,10 @@ public class HttpServiceProxyTest
             assertNotNull(response);
             assertTrue(response.hasError());
 
-            System.out.println(response.getErrorCode());
+            logger.info(response.getErrorCode());
             String output = new String(response.getPayload());
 
-            System.out.println(output);
+            logger.info(output);
             assertTrue(true);
         } catch (Exception e)
         {
@@ -92,6 +97,7 @@ public class HttpServiceProxyTest
     @Test
     public void testHttp404() throws Exception
     {
+        logger.info("testHttp404");
 
         TestHttpServiceProxy proxy = new TestHttpServiceProxy();
 
@@ -103,7 +109,7 @@ public class HttpServiceProxyTest
             assertTrue(response.hasError());
             assertEquals(404, response.getResponseCode());
 
-            System.out.println(response.getErrorCode());
+            logger.info(response.getErrorCode());
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -146,7 +152,7 @@ public class HttpServiceProxyTest
             if (method == null)
                 method = "";
 
-            System.out.println("Executing HttpServiceProxy for URL = "
+            logger.info("Executing HttpServiceProxy for URL = "
                     + this.getEndpoint(method));
 
             HttpServiceResponse response = (HttpServiceResponse) this

@@ -15,6 +15,8 @@ import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.metispro.business.registration.RegistrationService;
 import com.metispro.jdbc.hibernate.SessionFactoryUtil;
@@ -29,6 +31,8 @@ import com.metispro.model.registration.School;
  */
 public class RegistrationServiceTest
 {
+    final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     Session session = null;
     RegistrationService service = null;
 
@@ -54,7 +58,7 @@ public class RegistrationServiceTest
     @Test
     public void testProgram() throws Exception
     {
-        System.out.println(this.getClass().getSimpleName() + ".testProgram");
+        logger.info("testProgram");
 
         Program program = new Program();
         program.setProgramType(Program.Type.CLASS);
@@ -111,8 +115,7 @@ public class RegistrationServiceTest
     @Test
     public void testProgramSession() throws Exception
     {
-        System.out.println(this.getClass().getSimpleName()
-                + ".testProgramSession");
+        logger.info("testProgramSession");
 
         Calendar cal = GregorianCalendar.getInstance();
 
@@ -233,7 +236,7 @@ public class RegistrationServiceTest
     @Test
     public void testSchool() throws Exception
     {
-        System.out.println(this.getClass().getSimpleName() + ".testSchool");
+        logger.info("testSchool");
 
         School school = new School();
         school.setName("Pittsburg High School");
@@ -267,8 +270,7 @@ public class RegistrationServiceTest
     @Test
     public void testRegistration() throws Exception
     {
-        System.out.println(this.getClass().getSimpleName()
-                + ".testRegistration");
+        logger.info("testRegistration");
 
         Transaction trx = null;
 
