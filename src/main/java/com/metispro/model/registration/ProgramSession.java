@@ -30,9 +30,15 @@ public class ProgramSession
     @Column(name = "END_DATE")
     private Date endDate;
 
+    @Column(name = "SIGNUP_DEADLINE")
+    private Date signUpDeadline;
+
     @ManyToOne
     @JoinColumn(name = "PROGRAM_ID")
     private Program program;
+
+    @Column(name = "SESSION_NOTE")
+    private String sessionNote;
 
     public long getId()
     {
@@ -92,6 +98,23 @@ public class ProgramSession
     }
 
     /**
+     * @return the signUpDeadline
+     */
+    public Date getSignUpDeadline()
+    {
+        return signUpDeadline;
+    }
+
+    /**
+     * @param signUpDeadline
+     *            the signUpDeadline to set
+     */
+    public void setSignUpDeadline(Date signUpDeadline)
+    {
+        this.signUpDeadline = signUpDeadline;
+    }
+
+    /**
      * @return the program
      */
     public Program getProgram()
@@ -106,6 +129,23 @@ public class ProgramSession
     public void setProgram(Program program)
     {
         this.program = program;
+    }
+
+    /**
+     * @return the sessionNote
+     */
+    public String getSessionNote()
+    {
+        return sessionNote;
+    }
+
+    /**
+     * @param sessionNote
+     *            the sessionNote to set
+     */
+    public void setSessionNote(String sessionNote)
+    {
+        this.sessionNote = sessionNote;
     }
 
     /*
@@ -124,6 +164,10 @@ public class ProgramSession
         result = prime * result + (int) (id ^ (id >>> 32));
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((program == null) ? 0 : program.hashCode());
+        result = prime * result
+                + ((sessionNote == null) ? 0 : sessionNote.hashCode());
+        result = prime * result
+                + ((signUpDeadline == null) ? 0 : signUpDeadline.hashCode());
         result = prime * result
                 + ((updateDate == null) ? 0 : updateDate.hashCode());
         return result;
@@ -170,6 +214,18 @@ public class ProgramSession
                 return false;
         } else if (!program.equals(other.program))
             return false;
+        if (sessionNote == null)
+        {
+            if (other.sessionNote != null)
+                return false;
+        } else if (!sessionNote.equals(other.sessionNote))
+            return false;
+        if (signUpDeadline == null)
+        {
+            if (other.signUpDeadline != null)
+                return false;
+        } else if (!signUpDeadline.equals(other.signUpDeadline))
+            return false;
         if (updateDate == null)
         {
             if (other.updateDate != null)
@@ -191,8 +247,10 @@ public class ProgramSession
         builder.append("ProgramSession [id=").append(id)
                 .append(", updateDate=").append(updateDate).append(", name=")
                 .append(name).append(", beginDate=").append(beginDate)
-                .append(", endDate=").append(endDate).append(", program=")
-                .append(program).append("]");
+                .append(", endDate=").append(endDate)
+                .append(", signUpDeadline=").append(signUpDeadline)
+                .append(", program=").append(program).append(", sessionNote=")
+                .append(sessionNote).append("]");
         return builder.toString();
     }
 

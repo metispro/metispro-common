@@ -47,9 +47,6 @@ public class Program
 
     private String account;
 
-    @Column(name = "SIGNUP_DEADLINE")
-    private Date signUpDeadline;
-
     /**
      * @return the id
      */
@@ -169,23 +166,6 @@ public class Program
         this.account = account;
     }
 
-    /**
-     * @return the signUpDeadline
-     */
-    public Date getSignUpDeadline()
-    {
-        return signUpDeadline;
-    }
-
-    /**
-     * @param signUpDeadline
-     *            the signUpDeadline to set
-     */
-    public void setSignUpDeadline(Date signUpDeadline)
-    {
-        this.signUpDeadline = signUpDeadline;
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -204,8 +184,6 @@ public class Program
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result
                 + ((programType == null) ? 0 : programType.hashCode());
-        result = prime * result
-                + ((signUpDeadline == null) ? 0 : signUpDeadline.hashCode());
         result = prime * result
                 + ((updateDate == null) ? 0 : updateDate.hashCode());
         return result;
@@ -254,12 +232,6 @@ public class Program
             return false;
         if (programType != other.programType)
             return false;
-        if (signUpDeadline == null)
-        {
-            if (other.signUpDeadline != null)
-                return false;
-        } else if (!signUpDeadline.equals(other.signUpDeadline))
-            return false;
         if (updateDate == null)
         {
             if (other.updateDate != null)
@@ -282,8 +254,7 @@ public class Program
                 .append(updateDate).append(", programType=")
                 .append(programType).append(", name=").append(name)
                 .append(", description=").append(description).append(", fee=")
-                .append(fee).append(", account=").append(account)
-                .append(", signUpDeadline=").append(signUpDeadline).append("]");
+                .append(fee).append(", account=").append(account).append("]");
         return builder.toString();
     }
 

@@ -65,9 +65,6 @@ public class RegistrationServiceTest
         program.setName("Yoga 1");
         program.setDescription("Beginning level Yoga class");
         program.setFee(20.00);
-        Calendar cal = GregorianCalendar.getInstance();
-        cal.add(Calendar.DATE, 30);
-        program.setSignUpDeadline(cal.getTime());
 
         Transaction trx = null;
 
@@ -124,13 +121,13 @@ public class RegistrationServiceTest
         program.setName("Yoga 1");
         program.setDescription("Beginning level Yoga class");
         program.setFee(20.00);
-        cal.add(Calendar.DATE, 30);
-        program.setSignUpDeadline(cal.getTime());
 
         final ProgramSession programSession = new ProgramSession();
         programSession.setName("Fall Session");
         programSession.setBeginDate(new Date());
         programSession.setProgram(program);
+        cal.add(Calendar.DATE, 30);
+        programSession.setSignUpDeadline(cal.getTime());
 
         Transaction trx = null;
 
