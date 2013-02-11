@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.metispro.service.ServiceProxy;
+import com.metispro.service.ServiceRequest;
 import com.metispro.service.ServiceResponse;
 
 /**
@@ -67,7 +68,7 @@ public abstract class HttpServiceProxy implements ServiceProxy
      * @return
      * @throws Exception
      */
-    public ServiceResponse getServiceResponse(HttpServiceRequest request)
+    public ServiceResponse getServiceResponse(ServiceRequest request)
             throws Exception
     {
         if (request == null)
@@ -76,9 +77,6 @@ public abstract class HttpServiceProxy implements ServiceProxy
             return null;
         }
 
-        logger.info("Executing HttpServiceProxy for URL = "
-                + this.getEndpoint(request.getMethod()));
-
         HttpServiceResponse response = (HttpServiceResponse) this
                 .executeServiceRequestResponse(request);
 
@@ -86,10 +84,15 @@ public abstract class HttpServiceProxy implements ServiceProxy
     }
 
     protected ServiceResponse executeServiceRequestResponse(
-            HttpServiceRequest request) throws Exception
+            ServiceRequest _request) throws Exception
     {
-        if (request == null)
+        if (_request == null)
             logger.warn("HttpServiceRequest cannot be null");
+
+        HttpServiceRequest request = (HttpServiceRequest) _request;
+
+        logger.info("Executing HttpServiceProxy for URL = "
+                + this.getEndpoint(request.getMethod()));
 
         URL url = new URL(getEndpoint(request.getMethod()));
         HttpURLConnection conn = null;

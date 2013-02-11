@@ -15,5 +15,11 @@ public interface ServiceResponse
 
     public boolean hasError();
 
+    public ServiceResponse setErrorCode(String errorCode);
+
     public String getErrorCode();
+
+    public ServiceResponse setResponseCode(int responseCode);
+
+    public int getResponseCode();
 }
